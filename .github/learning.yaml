@@ -1,7 +1,7 @@
 name: learning
 on:
   push:
-    branch:
+    branches:
       - main
   pull_request:
 run-name: ${{ github.actor }} learning GitHub Actions 🚀
