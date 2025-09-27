@@ -28,11 +28,11 @@ jobs:
         uses: docker/metadata-action@v3
         with:
           images: hudir/examplevotingapp
-          flavor:
+          flavor: |
             latest=false
-          tags:
+          tags: |
             type=raw,value=04
-            type=raw.value=latest,enable=${{ endswith(github.ref, github.event.reposity)}}
+            type=raw,value=latest,enable=${{ endswith(github.ref, github.event.reposity) }}
             type=ref,event=pr
             type=ref,event=branch
             type=semver,pattern={{version}}
@@ -47,6 +47,6 @@ jobs:
           labels: ${{ steps.docker_meta.outputs.tags }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
-          platfroms: linux/amd64,linux/arm64,linux/arm/v7
+          platforms: linux/amd64,linux/arm64,linux/arm/v7
 
       - run: echo "tag and labels ${{ steps.docker_meta.outputs.tags }} ."
