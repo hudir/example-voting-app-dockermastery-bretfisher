@@ -11,6 +11,10 @@ jobs:
     name: Build image
     runs-on: ubuntu-latest
     steps:
+
+      - name: Check out code
+        uses: actions/checkout@v3
+
       - name: Set up QEMU - build for multi platfrom
         uses: docker/setup-qemu-action@v1
 
