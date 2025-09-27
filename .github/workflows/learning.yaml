@@ -27,21 +27,26 @@ jobs:
         id: docker_meta
         uses: docker/metadata-action@v3
         with:
-        images: hudir/examplevotingapp
-        flavor:
-          latest=false
-        tags:
-          type=raw,value=04
-          type=raw.value=latest,enable=${{ endswith(github.ref, github.event.reposity)}}
-          type=ref,event=pr
-          type=ref,event=branch
-          type=semver,pattern={{version}}
+          images: hudir/examplevotingapp
+          flavor:
+            latest=false
+          tags:
+            type=raw,value=04
+            type=raw.value=latest,enable=${{ endswith(github.ref, github.event.reposity)}}
+            type=ref,event=pr
+            type=ref,event=branch
+            type=semver,pattern={{version}}
+        
 
       - name: Docker build
         uses: docker/build-push-action@v2
         with:
           push: ${{ github.event_name != 'pull_request' }}
-          tags: hudir/examplevotingapp:latest
+          # tags: hudir/examplevotingapp:latest
+          tags: ${{ steps.docker_meta.outputs.tags }}
+          labels: ${{ steps.docker_meta.outputs.tags }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
           platfroms: linux/amd64,linux/arm64,linux/arm/v7
+
+      - run: echo "tag and labels ${{ steps.docker_meta.outputs.tags }} ."
