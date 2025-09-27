@@ -1,9 +1,9 @@
+name: learning
 on:
-  [push]
-  # push:
-  #   branch:
-  #     - main
-  # pull_request:
+  push:
+    branch:
+      - main
+  pull_request:
 run-name: ${{ github.actor }} learning GitHub Actions 🚀
 
 jobs:
